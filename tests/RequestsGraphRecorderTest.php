@@ -49,9 +49,9 @@ it('captures client_error requests', function () {
     Config::set('pulse.recorders.'.RequestsGraphRecorder::class.'.record_client_error', true);
     get('test-route-client-error')->assertStatus(400);
 
-    Pulse::ignore(fn () => expect(DB::table('pulse_aggregates')->where('type','client_error')->get())->toHaveCount(4));
+    Pulse::ignore(fn () => expect(DB::table('pulse_aggregates')->where('type', 'client_error')->get())->toHaveCount(4));
     Pulse::ignore(fn () => expect(DB::table('pulse_entries')->count())->toBe(0));
-    Pulse::ignore(fn () => expect(DB::table('pulse_values')->count())->toBe(0));    
+    Pulse::ignore(fn () => expect(DB::table('pulse_values')->count())->toBe(0));
 });
 
 it('does not capture successful requests', function () {
