@@ -3,10 +3,9 @@
 namespace PauloHortelan\RequestsGraphPulse;
 
 use Illuminate\Contracts\Foundation\Application;
-use Spatie\LaravelPackageTools\Package;
 use Livewire\LivewireManager;
-use PauloHortelan\RequestsGraphPulse\Livewire\Requests;
 use PauloHortelan\RequestsGraphPulse\Livewire\RequestsGraph;
+use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class RequestsServiceProvider extends PackageServiceProvider
@@ -25,5 +24,5 @@ class RequestsServiceProvider extends PackageServiceProvider
         $this->callAfterResolving('livewire', function (LivewireManager $livewire, Application $app) {
             $livewire->component('requests-graph', RequestsGraph::class);
         });
-    }    
+    }
 }

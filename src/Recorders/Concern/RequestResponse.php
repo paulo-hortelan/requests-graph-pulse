@@ -2,9 +2,6 @@
 
 namespace PauloHortelan\RequestsGraphPulse\Recorders\Concern;
 
-use Carbon\CarbonInterval;
-use Livewire\Attributes\Url;
-
 trait RequestResponse
 {
     /**
@@ -12,7 +9,7 @@ trait RequestResponse
      */
     protected function shouldRecord(string $statusClass): bool
     {
-        return $this->config->get('pulse.recorders.' . static::class . '.record_' . $statusClass) ?? false;
+        return $this->config->get('pulse.recorders.'.static::class.'.record_'.$statusClass) ?? false;
     }
 
     /**

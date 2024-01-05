@@ -19,9 +19,9 @@ it('captures informational requests', function () {
     Config::set('pulse.recorders.'.RequestsGraphRecorder::class.'.record_informational', true);
     get('test-route-informational')->assertStatus(100);
 
-    Pulse::ignore(fn () => expect(DB::table('pulse_aggregates')->where('type','informational')->get())->toHaveCount(4));
+    Pulse::ignore(fn () => expect(DB::table('pulse_aggregates')->where('type', 'informational')->get())->toHaveCount(4));
     Pulse::ignore(fn () => expect(DB::table('pulse_entries')->count())->toBe(0));
-    Pulse::ignore(fn () => expect(DB::table('pulse_values')->count())->toBe(0));    
+    Pulse::ignore(fn () => expect(DB::table('pulse_values')->count())->toBe(0));
 });
 
 it('captures successful requests', function () {
@@ -34,9 +34,9 @@ it('captures successful requests', function () {
     Config::set('pulse.recorders.'.RequestsGraphRecorder::class.'.record_successful', true);
     get('test-route-successful')->assertStatus(200);
 
-    Pulse::ignore(fn () => expect(DB::table('pulse_aggregates')->where('type','successful')->get())->toHaveCount(4));
+    Pulse::ignore(fn () => expect(DB::table('pulse_aggregates')->where('type', 'successful')->get())->toHaveCount(4));
     Pulse::ignore(fn () => expect(DB::table('pulse_entries')->count())->toBe(0));
-    Pulse::ignore(fn () => expect(DB::table('pulse_values')->count())->toBe(0));    
+    Pulse::ignore(fn () => expect(DB::table('pulse_values')->count())->toBe(0));
 });
 
 it('does not capture \'requests\' requests', function () {
