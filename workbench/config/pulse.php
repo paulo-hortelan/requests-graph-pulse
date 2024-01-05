@@ -234,7 +234,7 @@ return [
             'record_server_error' => env('PULSE_REQUESTS_RECORD_SERVER_ERROR', true),
             'ignore' => [
                 '#^/pulse$#', // Pulse dashboard...
-            ],            
-        ],  
+            ],
+        ],
     ],
 ];

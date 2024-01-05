@@ -5,19 +5,18 @@ namespace PauloHortelan\RequestsGraphPulse\Tests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Orchestra\Workbench\WorkbenchServiceProvider;
 
 class TestCase extends Orchestra
 {
     protected $enablesPackageDiscoveries = true;
-    
+
     use RefreshDatabase;
     use WithWorkbench;
 
     // protected function getPackageProviders($app)
     // {
     //     return [
-    //         \PauloHortelan\RequestsGraphPulse\RequestsServiceProvider::class, 
+    //         \PauloHortelan\RequestsGraphPulse\RequestsServiceProvider::class,
     //         \Workbench\App\Providers\WorkbenchServiceProvider::class
     //     ];
     // }
@@ -36,9 +35,9 @@ class TestCase extends Orchestra
     {
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
     }
 }
