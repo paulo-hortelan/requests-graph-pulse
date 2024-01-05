@@ -86,7 +86,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "PauloHortelan\\RequestsGraphPulse\\RequestsGraphPulseServiceProvider"
+                "PauloHortelan\\RequestsGraphPulse\\RequestsGraphServiceProvider"
             ],
             "aliases": {
                 "RequestsGraphPulse": "PauloHortelan\\RequestsGraphPulse\\Facades\\RequestsGraphPulse"
