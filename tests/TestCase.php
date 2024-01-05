@@ -1,36 +1,44 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace PauloHortelan\RequestsGraphPulse\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as Orchestra;
-use VendorName\Skeleton\SkeletonServiceProvider;
+use Orchestra\Workbench\WorkbenchServiceProvider;
 
 class TestCase extends Orchestra
 {
-    protected function setUp(): void
+    protected $enablesPackageDiscoveries = true;
+    
+    use RefreshDatabase;
+    use WithWorkbench;
+
+    // protected function getPackageProviders($app)
+    // {
+    //     return [
+    //         \PauloHortelan\RequestsGraphPulse\RequestsServiceProvider::class, 
+    //         \Workbench\App\Providers\WorkbenchServiceProvider::class
+    //     ];
+    // }
+
+    // protected function setUp(): void
+    // {
+    //     parent::setUp();
+
+    //     $this->artisan('migrate', [
+    //         '--database' => 'testbench',
+    //         '--realpath' => realpath(__DIR__ . '/../workbench/database/migrations'),
+    //     ]);
+    // }
+
+    protected function getEnvironmentSetUp($app)
     {
-        parent::setUp();
-
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'VendorName\\Skeleton\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
-    }
-
-    protected function getPackageProviders($app)
-    {
-        return [
-            SkeletonServiceProvider::class,
-        ];
-    }
-
-    public function getEnvironmentSetUp($app)
-    {
-        config()->set('database.default', 'testing');
-
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_skeleton_table.php.stub';
-        $migration->up();
-        */
+        $app['config']->set('database.default', 'testbench');
+        $app['config']->set('database.connections.testbench', [
+            'driver'   => 'sqlite',
+            'database' => ':memory:',
+            'prefix'   => '',
+        ]);
     }
 }

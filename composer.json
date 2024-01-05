@@ -36,24 +36,27 @@
     },
     "autoload": {
         "psr-4": {
-            "Paulo Hortelan\\RequestsGraphPulse\\": "src/",
-            "Paulo Hortelan\\RequestsGraphPulse\\Database\\Factories\\": "database/factories/"
+            "PauloHortelan\\RequestsGraphPulse\\": "src/",
+            "PauloHortelan\\RequestsGraphPulse\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Paulo Hortelan\\RequestsGraphPulse\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "PauloHortelan\\RequestsGraphPulse\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
         }
     },
     "scripts": {
-        "post-autoload-dump": "@composer run prepare",
-        "clear": "@php vendor/bin/testbench package:purge-requests-graph-pulse --ansi",
-        "prepare": "@php vendor/bin/testbench package:discover --ansi",
-        "build": [
-            "@composer run prepare",
-            "@php vendor/bin/testbench workbench:build --ansi"
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare",
+            "@composer run prepare"
         ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
         "start": [
             "Composer\\Config::disableProcessTimeout",
             "@composer run build",
@@ -62,7 +65,16 @@
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint"
+        "format": "vendor/bin/pint",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ],
+        "lint": [
+            "@php vendor/bin/pint",
+            "@php vendor/bin/phpstan analyse"
+        ]
     },
     "config": {
         "sort-packages": true,
@@ -74,10 +86,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Paulo Hortelan\\RequestsGraphPulse\\RequestsGraphPulseServiceProvider"
+                "PauloHortelan\\RequestsGraphPulse\\RequestsGraphPulseServiceProvider"
             ],
             "aliases": {
-                "RequestsGraphPulse": "Paulo Hortelan\\RequestsGraphPulse\\Facades\\RequestsGraphPulse"
+                "RequestsGraphPulse": "PauloHortelan\\RequestsGraphPulse\\Facades\\RequestsGraphPulse"
             }
         }
     },

@@ -1,0 +1,17 @@
+providers:
+  - PauloHortelan\RequestsGraphPulse\RequestsServiceProvider
+
+migrations:
+  - workbench/database/migrations
+
+workbench:
+  install: true
+  build:
+    - create-sqlite-db
+    - migrate:refresh
+  discovers:
+    config: true
+    web: true
+    api: true
+    commands: true
+    views: true
