@@ -1,19 +1,17 @@
-# This is my package requests-graph-pulse
+<p align="center"><img src="/images/requests-graph.png" alt="Requests Graph for Laravel Pulse"></p>
+
+# Requests Graph for Laravel Pulse
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/paulo-hortelan/requests-graph-pulse.svg?style=flat-square)](https://packagist.org/packages/paulo-hortelan/requests-graph-pulse)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/paulo-hortelan/requests-graph-pulse/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/paulo-hortelan/requests-graph-pulse/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/paulo-hortelan/requests-graph-pulse/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/paulo-hortelan/requests-graph-pulse/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/paulo-hortelan/requests-graph-pulse.svg?style=flat-square)](https://packagist.org/packages/paulo-hortelan/requests-graph-pulse)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Credits to [Aaron Francis](https://github.com/aarondfrancis) for his Pulse tutorial.
 
-## Support us
+This is a Laravel Pulse package that adds a graph showing the latest requests. 
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/requests-graph-pulse.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/requests-graph-pulse)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+- Customizable requests status to be shown
 
 ## Installation
 
@@ -23,37 +21,45 @@ You can install the package via composer:
 composer require paulo-hortelan/requests-graph-pulse
 ```
 
-You can publish and run the migrations with:
+## Register the recorder
 
-```bash
-php artisan vendor:publish --tag="requests-graph-pulse-migrations"
-php artisan migrate
+Add the `RequestsGraphRecorder` inside `config/pulse.php`. (If you don\'t have this file make sure you have published the config file of Larave Pulse using `php artisan vendor:publish --tag=pulse-config`)
+
 ```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="requests-graph-pulse-config"
-```
-
-This is the contents of the published config file:
-
-```php
 return [
-];
+    // ...
+
+    'recorders' => [
+        // Existing recorders...
+
+        \PauloHortelan\RequestsGraphPulse\Recorders\RequestsGraphRecorder::class => [
+            'enabled' => env('PULSE_REQUESTS_GRAPH_ENABLED', true),
+            'sample_rate' => env('PULSE_REQUESTS_GRAPH_SAMPLE_RATE', 1),
+            'record_informational' => env('PULSE_REQUESTS_GRAPH_RECORD_INFORMATIONAL', false),
+            'record_successful' => env('PULSE_REQUESTS_GRAPH_RECORD_SUCCESSFUL', true),
+            'record_redirection' => env('PULSE_REQUESTS_GRAPH_RECORD_REDIRECTION', false),
+            'record_client_error' => env('PULSE_REQUESTS_GRAPH_RECORD_CLIENT_ERROR', true),
+            'record_server_error' => env('PULSE_REQUESTS_GRAPH_RECORD_SERVER_ERROR', true),
+            'ignore' => [
+                '#^/pulse$#', // Pulse dashboard...
+            ],            
+        ], 
+    ]
+]
 ```
 
-Optionally, you can publish the views using
+## Add to your dashboard
+
+To add the card to the Pulse dashboard, you must first [publish the vendor view](https://laravel.com/docs/10.x/pulse#dashboard-customization).
 
 ```bash
-php artisan vendor:publish --tag="requests-graph-pulse-views"
+php artisan vendor:publish --tag=pulse-dashboard
 ```
 
-## Usage
+Then, you can modify the `dashboard.blade.php` file and add the requests-graph livewire template:
 
 ```php
-$requestsGraphPulse = new PauloHortelan\RequestsGraphPulse();
-echo $requestsGraphPulse->echoPhrase('Hello, Paulo Hortelan!');
+<livewire:requests-graph cols="6" />
 ```
 
 ## Testing
@@ -76,8 +82,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Paulo Hortelan](https://github.com/paulo-hortelan)
-- [All Contributors](../../contributors)
+-   [Paulo Hortelan](https://github.com/paulo-hortelan)
+-   [All Contributors](../../contributors)
 
 ## License
 
