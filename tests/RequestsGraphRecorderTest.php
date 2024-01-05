@@ -39,15 +39,30 @@ it('captures successful requests', function () {
     Pulse::ignore(fn () => expect(DB::table('pulse_values')->count())->toBe(0));    
 });
 
-it('does not capture \'requests\' requests', function () {
+it('captures client_error requests', function () {
+    Date::setTestNow('2000-01-02 03:04:05');
+
+    Route::get('test-route-client-error', function () {
+        return response('', 400);
+    });
+
+    Config::set('pulse.recorders.'.RequestsGraphRecorder::class.'.record_client_error', true);
+    get('test-route-client-error')->assertStatus(400);
+
+    Pulse::ignore(fn () => expect(DB::table('pulse_aggregates')->where('type','client_error')->get())->toHaveCount(4));
+    Pulse::ignore(fn () => expect(DB::table('pulse_entries')->count())->toBe(0));
+    Pulse::ignore(fn () => expect(DB::table('pulse_values')->count())->toBe(0));    
+});
+
+it('does not capture successful requests', function () {
     Config::set('pulse.recorders.'.RequestsGraphRecorder::class.'.record_successful', false);
     Date::setTestNow('2000-01-02 03:04:05');
 
-    Route::get('test-route', function () {
+    Route::get('test-route-successful', function () {
         return response('', 200);
     });
 
-    get('test-route');
+    get('test-route-successful');
 
     Pulse::ignore(fn () => expect(DB::table('pulse_entries')->get())->toHaveCount(0));
     Pulse::ignore(fn () => expect(DB::table('pulse_aggregates')->get())->toHaveCount(0));

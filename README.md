@@ -52,7 +52,7 @@ php artisan vendor:publish --tag="requests-graph-pulse-views"
 ## Usage
 
 ```php
-$requestsGraphPulse = new Paulo Hortelan\RequestsGraphPulse();
+$requestsGraphPulse = new PauloHortelan\RequestsGraphPulse();
 echo $requestsGraphPulse->echoPhrase('Hello, Paulo Hortelan!');
 ```
 

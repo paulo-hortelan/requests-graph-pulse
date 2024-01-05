@@ -1,5 +1,5 @@
 providers:
-  - PauloHortelan\RequestsGraphPulse\RequestsServiceProvider
+  - PauloHortelan\RequestsGraphPulse\RequestsGraphServiceProvider
 
 migrations:
   - workbench/database/migrations

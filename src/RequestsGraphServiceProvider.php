@@ -5,11 +5,10 @@ namespace PauloHortelan\RequestsGraphPulse;
 use Illuminate\Contracts\Foundation\Application;
 use Spatie\LaravelPackageTools\Package;
 use Livewire\LivewireManager;
-use PauloHortelan\RequestsGraphPulse\Livewire\Requests;
 use PauloHortelan\RequestsGraphPulse\Livewire\RequestsGraph;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class RequestsServiceProvider extends PackageServiceProvider
+class RequestsGraphServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
