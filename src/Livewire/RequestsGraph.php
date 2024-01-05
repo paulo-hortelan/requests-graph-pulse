@@ -39,7 +39,7 @@ class RequestsGraph extends Card
             $this->dispatch('requests-chart-update', request: $requests['request']);
         }
 
-        return View::make('livewire.requests-graph', [
+        return View::make('requests-graph-pulse::livewire.requests-graph', [
             'request' => $requests['request'],
             'time' => $time,
             'runAt' => $runAt,
