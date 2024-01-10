@@ -21,6 +21,8 @@ class RequestsGraphServiceProvider extends PackageServiceProvider
     {
         parent::boot();
 
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'requests-graph');
+
         $this->callAfterResolving('livewire', function (LivewireManager $livewire, Application $app) {
             $livewire->component('requests-graph', RequestsGraph::class);
         });

@@ -35,12 +35,14 @@ class RequestsGraph extends Card
             $this->periodAsInterval(),
         ));
 
+        $request = $requests->isNotEmpty() ? $requests['request'] : collect();
+
         if (Livewire::isLivewireRequest()) {
-            $this->dispatch('requests-chart-update', request: $requests['request']);
+            $this->dispatch('requests-chart-update', request: $request);
         }
 
         return View::make('requests-graph-pulse::livewire.requests-graph', [
-            'request' => $requests['request'],
+            'request' => $request,
             'time' => $time,
             'runAt' => $runAt,
             'config' => [
