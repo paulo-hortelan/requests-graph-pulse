@@ -50,16 +50,19 @@
             <div wire:key="requests-graph">
 
                 @php
-                function hightestValue($data){
-                    $highest = 0;
-
-                    foreach($data as $item) {
-                        $max = max($item);
-                        $highest = $max > $highest ? $max : $highest;
+                if(!function_exists('hightestValue')){
+                    function hightestValue($data){
+                        $highest = 0;
+    
+                        foreach($data as $item) {
+                            $max = max($item);
+                            $highest = $max > $highest ? $max : $highest;
+                        }
+    
+                        return $highest;
                     }
-
-                    return $highest;
                 }
+                
 
                 $highest = hightestValue($request->toArray());
                 @endphp
