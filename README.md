@@ -6,6 +6,7 @@
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/paulo-hortelan/requests-graph-pulse/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/paulo-hortelan/requests-graph-pulse/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/paulo-hortelan/requests-graph-pulse/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/paulo-hortelan/requests-graph-pulse/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/paulo-hortelan/requests-graph-pulse.svg?style=flat-square)](https://packagist.org/packages/paulo-hortelan/requests-graph-pulse)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Buy%20me%20a%20coffee!-%2346b798.svg)](https://ko-fi.com/paulohortelan)
 
 Credits to [Aaron Francis](https://github.com/aarondfrancis) for his Pulse tutorial.
 
