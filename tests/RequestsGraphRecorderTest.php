@@ -27,11 +27,12 @@ it('captures informational requests', function () {
 it('captures successful requests', function () {
     Date::setTestNow('2000-01-02 03:04:05');
 
+    Config::set('pulse.recorders.'.RequestsGraphRecorder::class.'.record_successful', true);
+
     Route::get('test-route-successful', function () {
         return response('', 200);
     });
 
-    Config::set('pulse.recorders.'.RequestsGraphRecorder::class.'.record_successful', true);
     get('test-route-successful')->assertStatus(200);
 
     Pulse::ignore(fn () => expect(DB::table('pulse_aggregates')->where('type', 'successful')->get())->toHaveCount(4));
@@ -68,3 +69,21 @@ it('does not capture successful requests', function () {
     Pulse::ignore(fn () => expect(DB::table('pulse_aggregates')->get())->toHaveCount(0));
     Pulse::ignore(fn () => expect(DB::table('pulse_values')->count())->toBe(0));
 });
+
+it('does not capture ignored requests', function () {
+    Date::setTestNow('2000-01-02 03:04:05');
+
+    Config::set('pulse.recorders.'.RequestsGraphRecorder::class.'.record_successful', true);
+    Config::set('pulse.recorders.'.RequestsGraphRecorder::class.'.ignore', ['#^/horizon#', '#^/pulse$#']);
+
+    Route::get('/horizon/api/stats', function () {
+        return response('', 200);
+    });
+
+    get('/horizon/api/stats');
+
+    Pulse::ignore(fn () => expect(DB::table('pulse_entries')->get())->toHaveCount(0));
+    Pulse::ignore(fn () => expect(DB::table('pulse_aggregates')->get())->toHaveCount(0));
+    Pulse::ignore(fn () => expect(DB::table('pulse_values')->count())->toBe(0));
+});
+
