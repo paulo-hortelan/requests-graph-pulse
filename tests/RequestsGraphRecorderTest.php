@@ -86,4 +86,3 @@ it('does not capture ignored requests', function () {
     Pulse::ignore(fn () => expect(DB::table('pulse_aggregates')->get())->toHaveCount(0));
     Pulse::ignore(fn () => expect(DB::table('pulse_values')->count())->toBe(0));
 });
-
