@@ -204,7 +204,7 @@
                             intersect: false,
                             callbacks: {
                                 beforeBody: (context) => context
-                                    .filter(item => item.formattedValue > 0)
+                                    .filter(item => item.raw > 0)
                                     .map(item => `${item.dataset.label}: ${data.sampleRate < 1 ? '~' : ''}${item.formattedValue}`)
                                     .join(', '),
                                 label: () => null,
