@@ -69,6 +69,11 @@ Then, you can modify the `dashboard.blade.php` file and add the requests-graph l
 composer test
 ```
 
+## TODO
+
+- Give the option to record the endpoint for each request
+- Filter the graph requests for selected endpoint
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
